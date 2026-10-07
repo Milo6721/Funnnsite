@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>funnn.site - gry w klockowym stylu</title>
-<meta name="description" content="Gry 3D w klockowym stylu, które działają od razu w przeglądarce: tycoon, parkour i wyścigi.">
+<meta name="description" content="Gry 3D w klockowym stylu, które działają od razu w przeglądarce: tycoon, parkour, wyścigi i łucznictwo.">
 <meta name="theme-color" content="#7CC8FF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0E1A3A" media="(prefers-color-scheme: dark)">
 <meta property="og:title" content="funnn.site">
@@ -72,9 +72,17 @@ a{color:inherit}
 .studs i{width:32px;height:13px;background:var(--c);border:4px solid var(--line);border-bottom:0;border-radius:8px 8px 0 0}
 .art{position:relative;display:block;aspect-ratio:16/10;overflow:hidden;background:#8FD3FF;border:4px solid var(--line);border-radius:14px;cursor:pointer}
 .art svg{position:absolute;inset:0;width:100%;height:100%;display:block}
-.pv{position:absolute;left:0;top:0;border:0;background:#000;transform-origin:0 0;pointer-events:none;opacity:0;transition:opacity .35s}
-.live{position:absolute;left:10px;bottom:10px;display:flex;align-items:center;gap:6px;padding:4px 10px;font:400 14px/1 "Lilita One",sans-serif;color:#fff;background:var(--pink);border:3px solid var(--line);border-radius:999px}
-.live::before{content:"";width:8px;height:8px;border-radius:50%;background:#fff}
+.pv{position:absolute;left:0;top:0;border:0;background:#000;transform-origin:0 0;pointer-events:none;opacity:0;transition:opacity .5s}
+.art .fallback{position:absolute;inset:0;transition:opacity .4s}
+.art.live .fallback{opacity:0;pointer-events:none}
+.live{position:absolute;left:10px;bottom:10px;display:flex;align-items:center;gap:6px;padding:4px 10px;font:400 14px/1 "Lilita One",sans-serif;color:#fff;background:var(--pink);border:3px solid var(--line);border-radius:999px;opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s}
+.live::before{content:"";width:8px;height:8px;border-radius:50%;background:#fff;animation:pulse 1.4s ease-in-out infinite}
+.art.live .live{opacity:1;transform:translateY(0)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.frozen{position:absolute;inset:0;display:grid;place-items:center;gap:8px;padding:16px;text-align:center;background:color-mix(in srgb,var(--c) 22%,var(--card));opacity:0;pointer-events:none;transition:opacity .3s}
+.frozen.show{opacity:1;pointer-events:auto}
+.frozen span{font:400 15px/1.3 "Lilita One",sans-serif;max-width:22ch}
+.frozen button{min-height:38px;padding:4px 14px;font:400 15px/1 "Lilita One",sans-serif;background:var(--card);border:3px solid var(--line);border-radius:10px;cursor:pointer}
 .dot{position:absolute;right:10px;top:10px;width:16px;height:16px;border-radius:50%;background:#9AA7C7;border:3px solid var(--line)}
 .dot.on{background:var(--green)}.dot.off{background:var(--pink)}
 .ribbon{position:absolute;right:18px;top:-20px;padding:5px 14px;font:400 15px/1 "Lilita One",sans-serif;color:#16213A;background:var(--yellow);border:3px solid var(--line);border-radius:999px;transform:rotate(3deg)}
@@ -181,7 +189,7 @@ noscript .ns{position:relative;padding:24px;max-width:600px;margin:40px auto;bac
 </section>
 <button class="peek" id="peek" type="button" hidden aria-label="Pokaż pasek"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
 
-<noscript><div class="ns"><b>Włącz JavaScript, żeby grać na funnn.site.</b><p>Albo wejdź prosto do gier: <a href="https://tycoon-red.vercel.app">Tycoon</a>, <a href="https://hellnah-six.vercel.app">Skoczek</a>, <a href="https://niebo-ecru.vercel.app">Podniebny Parkour</a>, <a href="https://carride-phi.vercel.app">Pustynny Rajd</a>.</p></div></noscript>
+<noscript><div class="ns"><b>Włącz JavaScript, żeby grać na funnn.site.</b><p>Albo wejdź prosto do gier: <a href="https://tycoon-red.vercel.app">Tycoon</a>, <a href="https://hellnah-six.vercel.app">Skoczek</a>, <a href="https://niebo-ecru.vercel.app">Podniebny Parkour</a>, <a href="https://carride-phi.vercel.app">Pustynny Rajd</a>, <a href="https://bowshot.vercel.app">Bow Shot</a>.</p></div></noscript>
 
 <script>
 (() => {
@@ -195,7 +203,8 @@ let games = [
   { id: 'tycoon', name: 'Klockowy Tycoon 2', desc: 'Zbuduj fabrykę, kop złoto w kopalni i odpieraj rabusiów. Uważaj na Króla Zbójów.', url: 'https://tycoon-red.vercel.app', color: '#3DDC84', art: 'tycoon', tags: ['3D', 'budowanie', 'zapis postępu'], controls: 'WASD ruch, spacja skok, F uderz (w kopalni kop), B buduj, E crafting, Q sklep. Na telefonie: joystick i przyciski.' },
   { id: 'skoczek', name: 'Skoczek: 10 Światów', desc: 'Skacz przez lawę, lód i kosmos. Zbieraj gwiazdki i odblokowuj nakrycia głowy.', url: 'https://hellnah-six.vercel.app', color: '#9B6BFF', art: 'skoczek', tags: ['3D', '10 światów', 'podwójny skok'], controls: 'WASD ruch, spacja skok (w powietrzu drugi raz), przeciągnij, żeby obrócić kamerę, R wraca na checkpoint, P pauza.' },
   { id: 'niebo', name: 'Podniebny Parkour', desc: 'Jeden tor w chmurach: ruchome platformy, wyrzutnie i lasery. Dotrzyj do pucharu.', url: 'https://niebo-ecru.vercel.app', color: '#4F9DFF', art: 'niebo', tags: ['3D', '4 etapy', 'na czas'], controls: 'WASD lub strzałki ruch, spacja skok, przeciągnij, żeby obrócić kamerę, P pauza. Na telefonie: joystick i przycisk Skok.' },
-  { id: 'auta', name: 'Pustynny Rajd', desc: 'Ścigaj się z botami, driftuj i uciekaj przed czołgiem, którego nie da się pokonać.', url: 'https://carride-phi.vercel.app', color: '#FF9A3C', art: 'auta', tags: ['3D', 'kariera', 'drift i nitro'], controls: 'WASD jazda, spacja drift, Shift boost, E wysiąść z auta, R wrócić na tor, P pauza. Na telefonie: joystick, Boost, Drift i Tor.' }
+  { id: 'auta', name: 'Pustynny Rajd', desc: 'Ścigaj się z botami, driftuj i uciekaj przed czołgiem, którego nie da się pokonać.', url: 'https://carride-phi.vercel.app', color: '#FF9A3C', art: 'auta', tags: ['3D', 'kariera', 'drift i nitro'], controls: 'WASD jazda, spacja drift, Shift boost, E wysiąść z auta, R wrócić na tor, P pauza. Na telefonie: joystick, Boost, Drift i Tor.' },
+  { id: 'bowshot', name: 'Bow Shot', desc: 'Strzelaj do tarcz, ścinaj drzewa, wspinaj się w góry i walcz z botami w turnieju. Uważaj na wilki i duchy.', url: 'https://bowshot.vercel.app', color: '#E8445A', art: 'bowshot', tags: ['3D', 'łuki i crafting', 'turniej z botami'], controls: 'WASD ruch, Shift bieg, spacja skok, LPM strzał (w lesie uderzenie), E sklep, warsztat, poziomy i szlaki, Q rodzaj strzały, V widok. Na telefonie: joystick, Strzel, Skok i Wejdź.' }
 ];
 const byId = id => games.find(g => g.id === id);
 const getLast = () => { try { return localStorage.getItem('funnn:last'); } catch (e) { return null; } };
@@ -243,7 +252,16 @@ const ART = {
 <rect x="198" y="144" width="14" height="22" fill="#C41428" stroke="${INK}" stroke-width="3"/><g fill="#FF2030"><rect x="236" y="124" width="8" height="6"/><rect x="254" y="124" width="8" height="6"/></g>
 <g stroke="${INK}" stroke-width="3"><rect x="88" y="150" width="76" height="26" rx="4" fill="#FF4F4F"/><rect x="104" y="136" width="44" height="18" rx="3" fill="#FF4F4F"/><rect x="110" y="140" width="32" height="10" fill="#9FDCFF" stroke-width="2"/><rect x="82" y="158" width="14" height="6" fill="#FFC93C" stroke-width="2"/><circle cx="104" cy="178" r="9" fill="#1C1C22"/><circle cx="150" cy="178" r="9" fill="#1C1C22"/></g>
 <g stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".8"><path d="M62 156 h-26M66 166 h-34M70 176 h-22"/></g>
-<g stroke="${INK}" stroke-width="3" fill="#4FA35A"><rect x="18" y="140" width="9" height="34"/><rect x="9" y="150" width="9" height="7"/><rect x="27" y="156" width="9" height="7"/></g></svg>`
+<g stroke="${INK}" stroke-width="3" fill="#4FA35A"><rect x="18" y="140" width="9" height="34"/><rect x="9" y="150" width="9" height="7"/><rect x="27" y="156" width="9" height="7"/></g></svg>`,
+  bowshot: () => `<svg viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Łuk z naciągniętą strzałą i tarcza z trafieniem w dziesiątkę"><defs><linearGradient id="gB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8FD3FF"/><stop offset="1" stop-color="#E4F6FF"/></linearGradient></defs>
+<rect width="320" height="200" fill="url(#gB)"/><circle cx="276" cy="36" r="18" fill="#FFF3C4"/>
+<g stroke="${INK}" stroke-width="3" stroke-linejoin="round"><path d="M-6 132 L48 66 L100 132Z" fill="#8D8A84"/><path d="M48 66 L36 82 L48 78 L60 84Z" fill="#fff"/><path d="M64 132 L132 48 L202 132Z" fill="#7D7A74"/><path d="M132 48 L116 70 L132 64 L148 72Z" fill="#fff"/></g>
+<rect y="130" width="320" height="70" fill="#6FCF6A"/><path d="M0 130 H320" stroke="${INK}" stroke-width="3"/>
+<g stroke="${INK}" stroke-width="3" stroke-linejoin="round"><rect x="20" y="132" width="8" height="18" fill="#8A5A3C"/><path d="M24 96 L40 126 H8Z M24 110 L44 140 H4Z" fill="#2F9E55"/><rect x="300" y="132" width="8" height="18" fill="#8A5A3C"/><path d="M304 100 L320 128 H288Z" fill="#2F9E55"/></g>
+<g stroke="${INK}" stroke-width="4" stroke-linecap="round"><path d="M226 120 L214 176 M236 120 L248 176"/></g>
+<g stroke="${INK}" stroke-width="3"><circle cx="230" cy="96" r="46" fill="#fff"/><circle cx="230" cy="96" r="37" fill="#2B2F3A"/><circle cx="230" cy="96" r="28" fill="#4F9DFF"/><circle cx="230" cy="96" r="19" fill="#E8445A"/><circle cx="230" cy="96" r="9" fill="#FFC93C"/></g>
+<g stroke="${INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M231 95 L192 70" fill="none"/><path d="M192 70 l-14 -9 m14 9 l-12 -2 m12 2 l-8 8" stroke="#E8445A" stroke-width="4"/><path d="M243 86 L212 60" fill="none"/><path d="M212 60 l-12 -7 m12 7 l-11 -1 m11 1 l-7 7" stroke="#E8445A" stroke-width="4"/></g>
+<g stroke="${INK}" stroke-width="3" stroke-linecap="round"><path d="M70 62 Q38 112 70 162" fill="none" stroke="#8A5A2E" stroke-width="8"/><path d="M70 62 L86 112 L70 162" fill="none" stroke="#fff" stroke-width="2.5"/><path d="M86 112 L168 112" stroke="#8A5A2E" stroke-width="4"/><path d="M168 112 l-9 -6 v12z" fill="#CCCFD6" stroke-linejoin="round"/><path d="M88 112 l-8 -7 m8 7 l-8 7 m16 -7 l-8 -7 m8 7 l-8 7" stroke="#E8445A" stroke-width="3"/></g></svg>`
 };
 
 /* ---------- routing ---------- */
@@ -275,12 +293,12 @@ function tileHTML(g) {
   return `<li class="tile" style="--c:${esc(g.color)}" data-id="${esc(g.id)}">
     <div class="studs" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
     ${getLast() === g.id ? '<span class="ribbon">Kontynuuj</span>' : ''}
-    <a class="art" href="/${esc(g.id)}" data-go="${esc(g.id)}" aria-label="Graj w ${esc(g.name)}">${art}<span class="live" hidden>podgląd na żywo</span><span class="dot" role="img" aria-label="Sprawdzam dostępność"></span></a>
+    <a class="art" href="/${esc(g.id)}" data-go="${esc(g.id)}" aria-label="Graj w ${esc(g.name)}"><span class="fallback">${art}</span><span class="live">na żywo</span><div class="frozen"><span>Podgląd zatrzymany</span><button type="button" class="pvResume">Wznów</button></div><span class="dot" role="img" aria-label="Sprawdzam dostępność"></span></a>
     <div class="label">
       <h2>${esc(g.name)}</h2>
       <p>${esc(g.desc)}</p>
       <ul class="chips">${(g.tags || []).map(t => `<li>${esc(t)}</li>`).join('')}</ul>
-      <div class="row"><a class="btn go" href="/${esc(g.id)}" data-go="${esc(g.id)}">Graj</a><button class="btn pvb" type="button" aria-pressed="false">Podgląd</button></div>
+      <div class="row"><a class="btn go" href="/${esc(g.id)}" data-go="${esc(g.id)}">Graj</a><button class="btn pvb" type="button" aria-pressed="true">Zatrzymaj podgląd</button></div>
     </div>
   </li>`;
 }

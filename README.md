@@ -5,7 +5,7 @@ Strona z grami: kafelki z podglądem na żywo, a po kliknięciu gra otwiera się
 ## Pliki
 
 ```
-index.html     cała strona (kafelki, odtwarzacz, routing /tycoon /skoczek /niebo /auta)
+index.html     cała strona (kafelki, odtwarzacz, routing /tycoon /skoczek /niebo /auta /bowshot)
 games.json     lista gier, tu dodajesz nowe
 api/check.js   sprawdza, czy gra pozwala na osadzenie; jeśli nie, strona przenosi gracza na jej adres
 vercel.json    przekierowanie wszystkich ścieżek na index.html
@@ -34,7 +34,7 @@ Dopisz obiekt w `games.json`:
 }
 ```
 
-Gra będzie pod `funnn.site/nowa`. Pole `art` może mieć wartość `tycoon`, `skoczek`, `niebo`, `auta` albo `fallback` (ogólna ilustracja z klocków w kolorze `color`).
+Gra będzie pod `funnn.site/nowa`. Pole `art` może mieć wartość `tycoon`, `skoczek`, `niebo`, `auta`, `bowshot` albo `fallback` (ogólna ilustracja z klocków w kolorze `color`).
 
 ## Jak działa osadzanie
 
