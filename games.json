@@ -68,5 +68,20 @@
       "turniej z botami"
     ],
     "controls": "WASD ruch, Shift bieg, spacja skok, LPM strzał (w lesie uderzenie), E sklep, warsztat, poziomy i szlaki, Q rodzaj strzały, V widok. Na telefonie: joystick, Strzel, Skok i Wejdź."
+  },
+  {
+    "id": "bildhouse",
+    "name": "Bild House",
+    "desc": "Ścinaj drzewa, zbuduj dom i przetrwaj noc. Misje, wyprawy po lesie, uprawy, wędkowanie i zombie.",
+    "url": "https://bild-house2.vercel.app",
+    "color": "#4FB04A",
+    "art": "bildhouse",
+    "tags": [
+      "3D",
+      "survival",
+      "budowanie domu",
+      "zapis świata"
+    ],
+    "controls": "WASD ruch, spacja skok, Shift bieg, LPM kop/atak, PPM użyj/postaw, E ekwipunek i crafting, J misje. Na telefonie: joystick i przyciski."
   }
 ]
